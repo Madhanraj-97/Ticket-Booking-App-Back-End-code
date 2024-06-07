@@ -1,5 +1,6 @@
 package com.spring_project.Ticket_booking_webApp.Dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.spring_project.Ticket_booking_webApp.repositry.BusScheduleRepository;
 
 @Repository
 public class BusScheduleDao {
+	
 	@Autowired
 	BusScheduleRepository repo;
 	
@@ -54,6 +56,12 @@ public class BusScheduleDao {
 		dto.setSourceCity(schedule.getSourcecity());
 		return dto;
 	}
-
+	public List<BusSchedule> searchBus(String from,String to){
+		List<BusSchedule> list=repo.searchBus(from, to);
+//		System.out.println(list);
+		return list;
+	}
+	
+	
 	
 }

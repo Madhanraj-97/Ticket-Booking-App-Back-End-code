@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring_project.Ticket_booking_webApp.Dto.BusScheduleDto;
 import com.spring_project.Ticket_booking_webApp.Dto.UserDto;
 import com.spring_project.Ticket_booking_webApp.Entity.User;
+import com.spring_project.Ticket_booking_webApp.service.BusScheduleService;
 import com.spring_project.Ticket_booking_webApp.service.UserService;
 import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 
@@ -43,5 +46,10 @@ public class UserController {
 	@GetMapping("getall")
 	public ResponseEntity<ResponseStructure<List<UserDto>>> getAllUser() {
 		return service.getAllUser();
+	}
+	
+	@GetMapping("searchbus")
+	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(@RequestParam String from,@RequestParam String to ){
+		return service.searchBus(from, to);
 	}
 }

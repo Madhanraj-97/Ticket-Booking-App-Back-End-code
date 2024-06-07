@@ -2,6 +2,7 @@ package com.spring_project.Ticket_booking_webApp.Dto;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring_project.Ticket_booking_webApp.Entity.Bus;
 import lombok.Data;
 

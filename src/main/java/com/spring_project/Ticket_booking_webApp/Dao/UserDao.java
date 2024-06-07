@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring_project.Ticket_booking_webApp.Dto.UserDto;
+import com.spring_project.Ticket_booking_webApp.Entity.BusSchedule;
 import com.spring_project.Ticket_booking_webApp.Entity.User;
 import com.spring_project.Ticket_booking_webApp.repositry.UserRepository;
 

@@ -1,5 +1,9 @@
 package com.spring_project.Ticket_booking_webApp.controller;
 
+import java.util.List;
+
+import javax.print.attribute.standard.Severity;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,6 +40,10 @@ public class BusScheduleController {
 	@DeleteMapping
 	public ResponseEntity<ResponseStructure<BusScheduleDto>>deleteSchedule(@RequestParam int id){
 		return service.deleteSchedule(id);
+	}
+	@GetMapping("searchbus")
+	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(@RequestParam String from,@RequestParam String to){
+		return service.searchBus(from, to);
 	}
 
 }

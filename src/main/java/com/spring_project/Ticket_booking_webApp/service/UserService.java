@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.spring_project.Ticket_booking_webApp.Dao.BusScheduleDao;
 import com.spring_project.Ticket_booking_webApp.Dao.UserDao;
+import com.spring_project.Ticket_booking_webApp.Dto.BusScheduleDto;
 import com.spring_project.Ticket_booking_webApp.Dto.UserDto;
-import com.spring_project.Ticket_booking_webApp.Dto.UserDto;
-import com.spring_project.Ticket_booking_webApp.Entity.User;
+import com.spring_project.Ticket_booking_webApp.Entity.BusSchedule;
 import com.spring_project.Ticket_booking_webApp.Entity.User;
 import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 
@@ -19,6 +20,8 @@ import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 public class UserService {
 	@Autowired
 	UserDao dao;
+	@Autowired
+	BusScheduleDao scheduleDao;
 	
 	public ResponseEntity<ResponseStructure<UserDto>> saveUser(User user){
 		ResponseStructure< UserDto> structure=new ResponseStructure<UserDto>();
@@ -78,7 +81,21 @@ public class UserService {
 		structure.setStatus(HttpStatus.FOUND.value());
 
 		return new ResponseEntity<ResponseStructure<List<UserDto>>>(structure,HttpStatus.FOUND);
-
+	}
+	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(String from,String to){
+		ResponseStructure<List<BusScheduleDto>> structure=new ResponseStructure<List<BusScheduleDto>>();
+		List<BusSchedule> list=scheduleDao.searchBus(from, to);
+		if(list!=null) {
+			List<BusScheduleDto> dto=new ArrayList<BusScheduleDto>();
+			for(BusSchedule sc:list) {
+				dto.add(scheduleDao.scheduleDtoConversion(sc));
+			}
+			structure.setData(dto);
+			structure.setMessage("BusSchedule list found");
+			structure.setStatus(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<BusScheduleDto>>>(structure,HttpStatus.FOUND);
+		}
+		return null;
 	}
 	
 }

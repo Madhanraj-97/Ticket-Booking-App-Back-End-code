@@ -1,5 +1,8 @@
 package com.spring_project.Ticket_booking_webApp.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,9 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.spring_project.Ticket_booking_webApp.Dao.BusScheduleDao;
 import com.spring_project.Ticket_booking_webApp.Dto.BusScheduleDto;
-import com.spring_project.Ticket_booking_webApp.Dto.BusScheduleDto;
-import com.spring_project.Ticket_booking_webApp.Dto.BusScheduleDto;
-import com.spring_project.Ticket_booking_webApp.Entity.Bus;
 import com.spring_project.Ticket_booking_webApp.Entity.BusSchedule;
 import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 
@@ -65,6 +65,28 @@ public class BusScheduleService {
 		}
 		return null;
 	}
+	
+	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(String from,String to){
+		ResponseStructure<List<BusScheduleDto>> structure=new ResponseStructure<List<BusScheduleDto>>();
+		List<BusSchedule> list=dao.searchBus(from, to);
+		if(list!=null) {
+			List<BusScheduleDto> dto=new ArrayList<BusScheduleDto>();
+			for(BusSchedule sc:list) {
+				dto.add(dao.scheduleDtoConversion(sc));
+			}
+			structure.setData(dto);
+			structure.setMessage("BusSchedule list found");
+			structure.setStatus(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<BusScheduleDto>>>(structure,HttpStatus.FOUND);
+		}
+		else{
+			structure.setData(null);
+			structure.setMessage("BusSchedule list found");
+			structure.setStatus(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<BusScheduleDto>>>(structure,HttpStatus.FOUND);
+		}
+	}
+	
 	
 	
 	
