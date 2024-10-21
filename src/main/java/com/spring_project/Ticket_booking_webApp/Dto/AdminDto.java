@@ -8,6 +8,7 @@ import lombok.Data;
 @Component
 @Data
 public class AdminDto {
+	private int id;
 	private String operator;
 	private String email;
 	private List<Bus> bus;

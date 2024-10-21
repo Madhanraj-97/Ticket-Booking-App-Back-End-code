@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class AdminController {
 	
 	@Autowired
 	AdminSerice service;
-
+	
 	@PostMapping
 	public ResponseEntity<ResponseStructure<AdminDto>> saveAdmin(@RequestBody Admin admin) {
 		return service.saveAdmin(admin);
@@ -56,10 +57,10 @@ public class AdminController {
 	public ResponseEntity<ResponseStructure<AdminDto>> addBus(@RequestParam int id, @RequestParam String busno){
 		return service.addBus(id, busno);
 	}
+	
 	@PutMapping("savebus")
 	public ResponseEntity<ResponseStructure<AdminDto>> saveBus(@RequestParam int id,@RequestBody Bus bus){
 		return service.saveBus(id, bus);
-		
 	}
 	
 }

@@ -38,25 +38,8 @@ public class AdminDao {
 		}
 	}
 
-	public Admin updateAdmin(Admin admin, int id) {
-		Admin existingAdmin = findById(id);
-		if (existingAdmin != null) {
-			if(admin.getBus()==null) {
-				admin.setBus(existingAdmin.getBus());
-			}
-			if(admin.getEmail()==null) {
-				admin.setEmail(existingAdmin.getEmail());
-			}
-			if(admin.getOperator()==null) {
-				admin.setOperator(existingAdmin.getOperator());
-			}
-			if(admin.getPassword()==null) {
-				admin.setPassword(existingAdmin.getPassword());
-			}
-			admin.setId(id);
+	public Admin updateAdmin(Admin admin) {
 			return repo.save(admin);
-		}
-		return null;
 	}
 
 	public List<Admin> getallAdmin() {
@@ -65,6 +48,7 @@ public class AdminDao {
 
 	public AdminDto dtoConversion(Admin admin) {
 		AdminDto dto = new AdminDto();
+		dto.setId(admin.getId());
 		dto.setBus(admin.getBus());
 		dto.setEmail(admin.getEmail());
 		dto.setOperator(admin.getOperator());

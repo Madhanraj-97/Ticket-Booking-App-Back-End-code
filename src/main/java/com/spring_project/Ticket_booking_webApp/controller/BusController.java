@@ -23,9 +23,10 @@ import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 public class BusController {
 	@Autowired
 	BusService service;
+	
 	@PostMapping
-	public ResponseEntity<ResponseStructure<BusDto>> saveBus(@RequestBody Bus bus) {
-		return service.saveBus(bus);
+	public ResponseEntity<ResponseStructure<BusDto>> saveBus(@RequestBody Bus bus, @RequestParam int adminId) {
+		return service.saveBus(bus,adminId);
 	}
 	@GetMapping
 	public ResponseEntity<ResponseStructure<BusDto>> findBus(@RequestParam int id) {

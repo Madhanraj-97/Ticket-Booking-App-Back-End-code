@@ -27,6 +27,7 @@ public class Bus {
 	private int seatcapacity;
 	private String operator;
 	private String ac;
+	private String seattype;
 	@OneToOne(cascade = CascadeType.ALL)
 	private BusSchedule schedule;
 	@OneToMany (cascade = CascadeType.ALL)

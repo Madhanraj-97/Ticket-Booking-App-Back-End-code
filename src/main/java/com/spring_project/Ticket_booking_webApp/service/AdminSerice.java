@@ -70,7 +70,7 @@ public class AdminSerice {
 
 		Admin exAdmin = dao.findById(id);
 		if (exAdmin != null) {
-			structure.setData(dao.dtoConversion(dao.updateAdmin(admin, id)));
+			structure.setData(dao.dtoConversion(dao.updateAdmin(admin)));
 			structure.setMessage("admin updated successfully");
 			structure.setStatus(HttpStatus.OK.value());
 			return new ResponseEntity<ResponseStructure<AdminDto>>(structure, HttpStatus.OK);
@@ -117,7 +117,7 @@ public class AdminSerice {
 				List<Bus> buslist = new ArrayList<Bus>(exAdmin.getBus());
 				buslist.add(bus);
 				exAdmin.setBus(buslist);
-				structure.setData(dao.dtoConversion(dao.updateAdmin(exAdmin, id)));
+				structure.setData(dao.dtoConversion(dao.updateAdmin(exAdmin)));
 				structure.setMessage("bus added with admin successfully");
 				structure.setStatus(HttpStatus.OK.value());
 				return new ResponseEntity<ResponseStructure<AdminDto>>(structure, HttpStatus.OK);
@@ -133,11 +133,12 @@ public class AdminSerice {
 		Admin existAdmin=dao.findById(id);
 		if(existAdmin!=null) {
 			bus.setAdmin(existAdmin);
-			bus=busDao.saveBus(bus);
+			bus.setSeat(busDao.seats(bus.getSeatcapacity(), bus));
+//			bus=busDao.saveBus(bus,id);
 			List<Bus> busList=new ArrayList<Bus>(existAdmin.getBus());
 			busList.add(bus);
 			existAdmin.setBus(busList);
-			dao.updateAdmin(existAdmin, id);
+			dao.updateAdmin(existAdmin);
 			structure.setData(dao.dtoConversion(existAdmin));
 			structure.setMessage("bus save with admin successfully");
 			structure.setStatus(HttpStatus.OK.value());

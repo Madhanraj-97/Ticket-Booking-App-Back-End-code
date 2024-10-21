@@ -68,7 +68,7 @@ public class UserService {
 			return new ResponseEntity<ResponseStructure<UserDto>>(structure,HttpStatus.OK);
 		}
 		return null;
-	}
+	}  
 	
 	public ResponseEntity<ResponseStructure<List<UserDto>>> getAllUser(){
 		ResponseStructure<List<UserDto>> structure=new ResponseStructure<List<UserDto>>();
@@ -97,5 +97,18 @@ public class UserService {
 		}
 		return null;
 	}
+	
+	public ResponseEntity<ResponseStructure<UserDto>> userLogin(String email, String password){
+		ResponseStructure<UserDto> structure=new ResponseStructure<UserDto>();
+		User saveUser=dao.userLogin(email, password);
+		if(saveUser!=null) {
+			structure.setData(dao.userDtoConversion(saveUser));
+			structure.setMessage("User found with given email and password ");
+			structure.setStatus(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<UserDto>>(structure,HttpStatus.FOUND);
+		}
+		return null;	
+	}
+	
 	
 }

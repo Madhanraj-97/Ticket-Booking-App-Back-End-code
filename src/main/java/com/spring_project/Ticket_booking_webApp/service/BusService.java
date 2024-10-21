@@ -19,9 +19,9 @@ public class BusService {
 	@Autowired
 	BusDao dao;
 	
-	public ResponseEntity<ResponseStructure<BusDto>> saveBus(Bus bus){
+	public ResponseEntity<ResponseStructure<BusDto>> saveBus(Bus bus,int adminId){
 		ResponseStructure<BusDto> structure=new ResponseStructure<BusDto>();
-		Bus savedBus=dao.saveBus(bus);
+		Bus savedBus=dao.saveBus(bus,adminId);
 		if(savedBus!=null) {
 			structure.setData(dao.busDtoConversion(savedBus));
 			structure.setMessage("Bus saved success");

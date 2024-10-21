@@ -4,23 +4,27 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
+import com.spring_project.Ticket_booking_webApp.Dto.AdminDto;
 import com.spring_project.Ticket_booking_webApp.Dto.BusDto;
+import com.spring_project.Ticket_booking_webApp.Entity.Admin;
 import com.spring_project.Ticket_booking_webApp.Entity.Bus;
 import com.spring_project.Ticket_booking_webApp.Entity.Seat;
+import com.spring_project.Ticket_booking_webApp.repositry.AdminRepository;
 import com.spring_project.Ticket_booking_webApp.repositry.BusRepository;
+import com.spring_project.Ticket_booking_webApp.service.AdminSerice;
+import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 
 @Repository
 public class BusDao {
 	@Autowired
 	BusRepository repo;
-
-	public Bus saveBus(Bus bus) {
-		bus=repo.save(bus);
+	
+	public Bus saveBus(Bus bus,int AdminId) {
 		bus.setSeat(seats(bus.getSeatcapacity(), bus));
-		return repo.save(bus);
-		
+		return repo.save(bus); //this is line save the bus without admin object 
 
 	}
 	

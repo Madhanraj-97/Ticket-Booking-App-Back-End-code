@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring_project.Ticket_booking_webApp.Dto.BusScheduleDto;
 import com.spring_project.Ticket_booking_webApp.Dto.UserDto;
 import com.spring_project.Ticket_booking_webApp.Entity.User;
-import com.spring_project.Ticket_booking_webApp.service.BusScheduleService;
 import com.spring_project.Ticket_booking_webApp.service.UserService;
 import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 
@@ -31,18 +29,22 @@ public class UserController {
 	public ResponseEntity<ResponseStructure<UserDto>> saveUser(@RequestBody User User) {
 		return service.saveUser(User);
 	}
+	
 	@GetMapping
 	public ResponseEntity<ResponseStructure<UserDto>> findUser(@RequestParam int id) {
 		return service.findUser(id);
 	}
+	
 	@DeleteMapping
 	public ResponseEntity<ResponseStructure<UserDto>> removeUser(@RequestParam int id) {
 		return service.deleteUser(id);
 	}
+	
 	@PutMapping
 	public ResponseEntity<ResponseStructure<UserDto>> updateUser(@RequestBody User User,@RequestParam int id) {
 		return service.updateUser(User, id);	
 	}
+	
 	@GetMapping("getall")
 	public ResponseEntity<ResponseStructure<List<UserDto>>> getAllUser() {
 		return service.getAllUser();
@@ -52,4 +54,9 @@ public class UserController {
 	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(@RequestParam String from,@RequestParam String to ){
 		return service.searchBus(from, to);
 	}
+	@GetMapping("login")
+	public ResponseEntity<ResponseStructure<UserDto>> userlogin(@RequestParam String email,@RequestParam String password){
+		return service.userLogin(email, password);
+	}
+	
 }
