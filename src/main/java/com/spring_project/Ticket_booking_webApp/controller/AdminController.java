@@ -62,6 +62,13 @@ public class AdminController {
 	public ResponseEntity<ResponseStructure<AdminDto>> saveBus(@RequestParam int id,@RequestBody Bus bus){
 		return service.saveBus(id, bus);
 	}
-	
+	@PutMapping("updatebus")
+	public ResponseEntity<ResponseStructure<AdminDto>> updateBus(@RequestParam int id,@RequestBody Bus bus){
+		return service.modifyBus(id, bus);
+	}
+	@DeleteMapping("deletebus")
+	public ResponseEntity<ResponseStructure<AdminDto>> removeBus(@RequestParam int id) {
+		return service.deleteAdmin(id);
+	}
 }
     

@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.spring_project.Ticket_booking_webApp.Dto.SeatDto;
 import com.spring_project.Ticket_booking_webApp.Entity.Seat;
 import com.spring_project.Ticket_booking_webApp.repositry.SeatRepository;
+
 @Repository
 public class SeatDao {
 
 	@Autowired
 	SeatRepository repo;
-	
+
 	public Seat saveSeat(Seat seat) {
 		return repo.save(seat);
 	}
@@ -47,12 +48,22 @@ public class SeatDao {
 			return null;
 		}
 	}
-	public List<Seat> getAllSeat(){
+
+	public List<Seat> getAllSeat() {
 		return repo.findAll();
 	}
-	
+
+	// function for delete seats where bus.is is null;
+	public int deleteSeats() {
+		return repo.deleteSeats();
+	}
+
+	public int removeBus(int id) {
+		return repo.removeBusFromSeats(id);
+	}
+
 	public SeatDto seatDtoConversion(Seat s) {
-		SeatDto dto=new SeatDto();
+		SeatDto dto = new SeatDto();
 		dto.setBus(s.getBus());
 		dto.setPassenger(s.getPassenger());
 		dto.setSeatNo(s.getSeatNo());

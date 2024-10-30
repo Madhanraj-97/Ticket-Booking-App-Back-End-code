@@ -21,21 +21,21 @@ import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 public class BusDao {
 	@Autowired
 	BusRepository repo;
-	
-	public Bus saveBus(Bus bus,int AdminId) {
+
+	public Bus saveBus(Bus bus, int AdminId) {
 		bus.setSeat(seats(bus.getSeatcapacity(), bus));
-		return repo.save(bus); //this is line save the bus without admin object 
+		return repo.save(bus); // this is line save the bus without admin object
 
 	}
-	
-	public Seat[] seats(int count,Bus bus) {
-		Seat[] seat=new Seat[count];
-		for(int i=0;i<count;i++) {
-			Seat s=new Seat();
+
+	public Seat[] seats(int count, Bus bus) {
+		Seat[] seat = new Seat[count];
+		for (int i = 0; i < count; i++) {
+			Seat s = new Seat();
 			s.setBus(bus);
 			s.setAvilable(false);
-			s.setSeatNo(i+1);
-			seat[i]=s;
+			s.setSeatNo(i + 1);
+			seat[i] = s;
 		}
 		return seat;
 	}
@@ -48,14 +48,15 @@ public class BusDao {
 		}
 		return null;
 	}
-	
+
 	public Bus findByBusNo(String Busno) {
-		Optional<Bus> optional=repo.findByBusNo(Busno);
-		if(optional.isPresent()) {
+		Optional<Bus> optional = repo.findByBusNo(Busno);
+		if (optional.isPresent()) {
 			return optional.get();
 		}
 		return null;
 	}
+
 	public Bus deleteBus(int id) {
 		Bus bus = findById(id);
 		if (bus != null) {
@@ -65,13 +66,9 @@ public class BusDao {
 		return bus;
 	}
 
-	public Bus updateBus(Bus bus, int id) {
-		Bus existBus = findById(id);
-		if (existBus != null) {
-			bus.setId(id);
-			return repo.save(bus);
-		}
-		return null;
+	public Bus updateBus(Bus bus) {
+		
+		return repo.save(bus);
 	}
 
 	public BusDto busDtoConversion(Bus bus) {

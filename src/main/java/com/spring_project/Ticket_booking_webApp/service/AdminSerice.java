@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring_project.Ticket_booking_webApp.Dao.AdminDao;
 import com.spring_project.Ticket_booking_webApp.Dao.BusDao;
+import com.spring_project.Ticket_booking_webApp.Dao.SeatDao;
 import com.spring_project.Ticket_booking_webApp.Dto.AdminDto;
 import com.spring_project.Ticket_booking_webApp.Entity.Admin;
 import com.spring_project.Ticket_booking_webApp.Entity.Bus;
@@ -24,6 +25,8 @@ public class AdminSerice {
 	AdminDao dao;
 	@Autowired
 	BusDao busDao;
+	@Autowired
+	SeatDao seats;
 
 	public ResponseEntity<ResponseStructure<AdminDto>> saveAdmin(Admin admin) {
 		ResponseStructure<AdminDto> structure = new ResponseStructure<AdminDto>();
@@ -128,22 +131,49 @@ public class AdminSerice {
 		throw new AdminNotFound("incorrect bus no ");
 	}
 
-	public ResponseEntity<ResponseStructure<AdminDto>> saveBus(int id, Bus bus){
-		ResponseStructure<AdminDto> structure=new ResponseStructure<AdminDto>();
-		Admin existAdmin=dao.findById(id);
-		if(existAdmin!=null) {
+	public ResponseEntity<ResponseStructure<AdminDto>> saveBus(int id, Bus bus) {
+		ResponseStructure<AdminDto> structure = new ResponseStructure<AdminDto>();
+		Admin existAdmin = dao.findById(id);
+		if (existAdmin != null) {
 			bus.setAdmin(existAdmin);
 			bus.setSeat(busDao.seats(bus.getSeatcapacity(), bus));
 //			bus=busDao.saveBus(bus,id);
-			List<Bus> busList=new ArrayList<Bus>(existAdmin.getBus());
+			List<Bus> busList = new ArrayList<Bus>(existAdmin.getBus());
 			busList.add(bus);
 			existAdmin.setBus(busList);
 			dao.updateAdmin(existAdmin);
 			structure.setData(dao.dtoConversion(existAdmin));
 			structure.setMessage("bus save with admin successfully");
 			structure.setStatus(HttpStatus.OK.value());
-			return new ResponseEntity<ResponseStructure<AdminDto>>(structure,HttpStatus.OK);
+			return new ResponseEntity<ResponseStructure<AdminDto>>(structure, HttpStatus.OK);
 		}
 		throw new AdminNotFound("save new bus sucessfully");
+	}
+
+	public ResponseEntity<ResponseStructure<AdminDto>> modifyBus(int id, Bus bus) {
+		ResponseStructure<AdminDto> structure = new ResponseStructure<AdminDto>();
+		Bus existingBus = busDao.findById(id);
+		bus.setAdmin(existingBus.getAdmin());
+		
+		if (bus.getSeatcapacity() != existingBus.getSeatcapacity()) {
+			
+			bus.setSeat(busDao.seats(bus.getSeatcapacity(), bus));
+			seats.removeBus(id);
+			Admin admin = dao.findById(busDao.updateBus(bus).getAdmin().getId());
+			seats.deleteSeats();
+			structure.setData(dao.dtoConversion(admin));
+			structure.setMessage("bus deatails update with admin successfully");
+			structure.setStatus(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<AdminDto>>(structure, HttpStatus.OK);
+			
+		} else {
+			Admin admin = dao.findById(busDao.updateBus(bus).getAdmin().getId());
+			
+			structure.setData(dao.dtoConversion(admin));
+			structure.setMessage("bus deatails update with admin successfully");
+			structure.setStatus(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<AdminDto>>(structure, HttpStatus.OK);
+
+		}
 	}
 }

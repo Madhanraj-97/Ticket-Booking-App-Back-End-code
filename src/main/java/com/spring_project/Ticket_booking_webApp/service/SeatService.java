@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +77,15 @@ public class SeatService {
 		structure.setStatus(HttpStatus.FOUND.value());
 
 		return new ResponseEntity<ResponseStructure<List<SeatDto>>>(structure,HttpStatus.FOUND);
-
+	}
+	
+	public ResponseEntity<ResponseStructure<Integer>>deleteSeatsWithoutBus(){
+		ResponseStructure<Integer> structure= new ResponseStructure<Integer>();
+		structure.setData(dao.deleteSeats());
+		structure.setMessage(" Delete seats not contain bus ");
+		structure.setStatus(HttpStatus.NO_CONTENT.value());
+		
+		return new ResponseEntity<ResponseStructure<Integer>>(structure,HttpStatus.NO_CONTENT);
 	}
 
 
