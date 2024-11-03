@@ -22,6 +22,9 @@ public class BusDao {
 	@Autowired
 	BusRepository repo;
 
+//	public int deleteSeats(int id) {
+//		return repo.removeSeatsFromBus(id);
+//	}
 	public Bus saveBus(Bus bus, int AdminId) {
 		bus.setSeat(seats(bus.getSeatcapacity(), bus));
 		return repo.save(bus); // this is line save the bus without admin object
@@ -60,7 +63,7 @@ public class BusDao {
 	public Bus deleteBus(int id) {
 		Bus bus = findById(id);
 		if (bus != null) {
-			repo.delete(bus);
+			repo.deleteById(id);
 			return bus;
 		}
 		return bus;

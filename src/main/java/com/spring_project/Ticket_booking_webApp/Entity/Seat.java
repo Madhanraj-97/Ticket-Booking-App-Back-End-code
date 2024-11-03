@@ -25,6 +25,7 @@ public class Seat {
 	private boolean avilable;
 	@OneToOne
 	private Passenger passenger;
+	
 	@JsonIgnore
 	@ManyToOne
 	private Bus bus;

@@ -66,9 +66,9 @@ public class AdminController {
 	public ResponseEntity<ResponseStructure<AdminDto>> updateBus(@RequestParam int id,@RequestBody Bus bus){
 		return service.modifyBus(id, bus);
 	}
-	@DeleteMapping("deletebus")
+	@PutMapping("deletebus")
 	public ResponseEntity<ResponseStructure<AdminDto>> removeBus(@RequestParam int id) {
-		return service.deleteAdmin(id);
+		return service.deleteBus(id);
 	}
 }
     

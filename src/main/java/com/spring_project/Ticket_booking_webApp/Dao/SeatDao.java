@@ -19,7 +19,7 @@ public class SeatDao {
 	public Seat saveSeat(Seat seat) {
 		return repo.save(seat);
 	}
-
+	
 	public Seat findById(int id) {
 		Optional<Seat> optional = repo.findById(id);
 		if (optional.isPresent()) {

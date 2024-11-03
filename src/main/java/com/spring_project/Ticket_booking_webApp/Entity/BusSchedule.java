@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class BusSchedule {
 	private int distance;
 	private String estimatedtime;
 	@OneToOne
-	@JsonIgnore
+	@JsonIgnore	
 	private Bus bus;
 	
 }
