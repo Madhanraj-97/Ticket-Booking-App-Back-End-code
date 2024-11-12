@@ -20,4 +20,4 @@ COPY --from=build /app/target/Ticket_booking_webApp-0.0.1-SNAPSHOT.jar Ticket_bo
 EXPOSE 8080
 
 # Command to run the application
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+ENTRYPOINT ["java", "-jar", "Ticket_booking_webApp.jar"]
