@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Component
@@ -28,6 +29,7 @@ public class Bus {
 	private String operator;
 	private String ac;
 	private String seattype;
+	@EqualsAndHashCode.Exclude
 	@OneToOne(cascade = CascadeType.ALL)
 	private BusSchedule schedule;
 	@OneToMany (cascade = CascadeType.ALL)

@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
 @Entity
@@ -25,7 +26,7 @@ public class Seat {
 	private boolean avilable;
 	@OneToOne
 	private Passenger passenger;
-	
+	@EqualsAndHashCode.Exclude
 	@JsonIgnore
 	@ManyToOne
 	private Bus bus;
