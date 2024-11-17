@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 @Entity
 //@Data
 @Component
@@ -21,9 +22,9 @@ public class Admin {
 	private String operator;
 	private String email;
 	private String password;
+	@EqualsAndHashCode.Exclude
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Bus> bus;
-	  
 	public int getId() {
 		return id;
 	}

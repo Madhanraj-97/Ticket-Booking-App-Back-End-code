@@ -1,5 +1,6 @@
 package com.spring_project.Ticket_booking_webApp.repositry;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,9 @@ public interface BusRepository extends JpaRepository<Bus,Integer> {
 	@Modifying
 	@Query("update Bus b SET b.seat = NULL WHERE b.id =?1")
 	int removeSeatsFromBus(int id);
+	
+	@Query("select b from Bus b WHERE b.schedule.sourcecity =?1 AND b.schedule.destinationcity =?2 ")
+	Optional<List<Bus>> getBuslist(String source,String destination);
 	
 	
 }

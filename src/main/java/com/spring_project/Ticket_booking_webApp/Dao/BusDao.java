@@ -89,4 +89,9 @@ public class BusDao {
 		return repo.findAll();
 	}
 
+	public List<Bus> busList(String source, String destination) {
+		Optional<List<Bus>> optional= repo.getBuslist(source, destination);
+		return optional.isPresent()? optional.get():null;
+	}
+
 }

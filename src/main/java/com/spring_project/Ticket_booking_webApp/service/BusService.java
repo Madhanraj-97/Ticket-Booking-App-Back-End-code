@@ -6,6 +6,7 @@ import org.hibernate.query.sqm.mutation.internal.temptable.BeforeUseAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -105,5 +106,19 @@ public class BusService {
 			return new ResponseEntity<ResponseStructure<BusDto>>(structure, HttpStatus.FOUND);
 		}
 		return null;
+	}
+
+	public ResponseEntity<ResponseStructure<List<Bus>>> getBusList(String source, String destination) {
+		ResponseStructure<List<Bus>> structure = new ResponseStructure<List<Bus>>();
+		List<Bus> busList= dao.busList(source,destination);
+		if ( !busList.equals(null) && !busList.isEmpty()) {
+			structure.setData(busList);
+			structure.setMessage("get the list of bus based on search query ");
+			structure.setStatus(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<Bus>>>(structure,HttpStatus.FOUND);
+		}
+		structure.setMessage("no bus found ");
+		structure.setStatus(HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<ResponseStructure<List<Bus>>>(structure,HttpStatus.NOT_FOUND);
 	}
 }
