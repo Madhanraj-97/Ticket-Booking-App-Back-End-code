@@ -115,10 +115,10 @@ public class BusService {
 			structure.setData(busList);
 			structure.setMessage("get the list of bus based on search query ");
 			structure.setStatus(HttpStatus.FOUND.value());
-			return new ResponseEntity<ResponseStructure<List<Bus>>>(structure,HttpStatus.FOUND);
+			return new ResponseEntity<ResponseStructure<List<Bus>>>(structure,HttpStatus.OK);
 		}
 		structure.setMessage("no bus found ");
 		structure.setStatus(HttpStatus.NOT_FOUND.value());
-		return new ResponseEntity<ResponseStructure<List<Bus>>>(structure,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ResponseStructure<List<Bus>>>(structure,HttpStatus.NO_CONTENT);
 	}
 }
