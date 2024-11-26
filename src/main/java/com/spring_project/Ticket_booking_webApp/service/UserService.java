@@ -1,5 +1,6 @@
 package com.spring_project.Ticket_booking_webApp.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,9 +83,9 @@ public class UserService {
 
 		return new ResponseEntity<ResponseStructure<List<UserDto>>>(structure,HttpStatus.FOUND);
 	}
-	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(String from,String to){
+	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(String from,String to, LocalDate date){
 		ResponseStructure<List<BusScheduleDto>> structure=new ResponseStructure<List<BusScheduleDto>>();
-		List<BusSchedule> list=scheduleDao.searchBus(from, to);
+		List<BusSchedule> list=scheduleDao.searchBus(from, to, date);
 		if(list!=null) {
 			List<BusScheduleDto> dto=new ArrayList<BusScheduleDto>();
 			for(BusSchedule sc:list) {

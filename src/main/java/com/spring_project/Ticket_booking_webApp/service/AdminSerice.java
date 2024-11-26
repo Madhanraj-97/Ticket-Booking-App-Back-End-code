@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.spring_project.Ticket_booking_webApp.Dao.AdminDao;
 import com.spring_project.Ticket_booking_webApp.Dao.BusDao;
+import com.spring_project.Ticket_booking_webApp.Dao.BusScheduleDao;
 import com.spring_project.Ticket_booking_webApp.Dao.SeatDao;
 import com.spring_project.Ticket_booking_webApp.Dto.AdminDto;
 import com.spring_project.Ticket_booking_webApp.Entity.Admin;
 import com.spring_project.Ticket_booking_webApp.Entity.Bus;
+import com.spring_project.Ticket_booking_webApp.Entity.BusSchedule;
 import com.spring_project.Ticket_booking_webApp.exception.AdminNotFound;
 import com.spring_project.Ticket_booking_webApp.util.ResponseStructure;
 
@@ -26,6 +28,8 @@ public class AdminSerice {
 	BusDao busDao;
 	@Autowired
 	SeatDao seats;
+	@Autowired
+	BusScheduleDao scheduleDao;
 
 	public ResponseEntity<ResponseStructure<AdminDto>> deleteBus(int id) {
 		Bus bus = busDao.findById(id);
@@ -42,7 +46,7 @@ public class AdminSerice {
 		dbAdmin.setBus(dbAdmin.getBus().stream().filter(b -> b.getId() != bus.getId()).collect(Collectors.toList()));
 		dbAdmin = dao.updateAdmin(dbAdmin);
 		busDao.deleteBus(id);
-		
+
 		structure.setData(dao.dtoConversion(dbAdmin));
 		structure.setMessage("remove bus form admin object sucessfully");
 		structure.setStatus(HttpStatus.OK.value());
@@ -157,8 +161,7 @@ public class AdminSerice {
 		Admin existAdmin = dao.findById(id);
 		if (existAdmin != null) {
 			bus.setAdmin(existAdmin);
-			bus.setSeat(busDao.seats(bus.getSeatcapacity(), bus));
-//			bus=busDao.saveBus(bus,id);
+			bus = busDao.saveBus(bus);
 			List<Bus> busList = new ArrayList<Bus>(existAdmin.getBus());
 			busList.add(bus);
 			existAdmin.setBus(busList);
@@ -177,8 +180,6 @@ public class AdminSerice {
 		bus.setAdmin(existingBus.getAdmin());
 
 		if (bus.getSeatcapacity() != existingBus.getSeatcapacity()) {
-
-			bus.setSeat(busDao.seats(bus.getSeatcapacity(), bus));
 			seats.removeBus(id);
 			Admin admin = dao.findById(busDao.updateBus(bus).getAdmin().getId());
 			seats.deleteSeats();
@@ -195,6 +196,22 @@ public class AdminSerice {
 			structure.setStatus(HttpStatus.OK.value());
 			return new ResponseEntity<ResponseStructure<AdminDto>>(structure, HttpStatus.OK);
 		}
+	}
+
+	public ResponseEntity<ResponseStructure<AdminDto>> saveSchedule(BusSchedule schedule, int id) {
+		ResponseStructure<AdminDto> structure = new ResponseStructure<AdminDto>();
+		Bus dbBus = busDao.findById(id);
+		schedule.setSeat(scheduleDao.seats(dbBus.getSeatcapacity(), schedule));
+		schedule.setBus(dbBus);
+		List<BusSchedule> schedules=dbBus.getSchedules();
+		schedules.add(schedule);
+		dbBus.setSchedules(schedules);
+		dbBus=busDao.saveBus(dbBus);
+		structure.setData(dao.dtoConversion(dbBus.getAdmin()));
+		structure.setMessage("schedule deatails updated successfully with bus ");
+		structure.setStatus(HttpStatus.OK.value());
+		return new ResponseEntity<ResponseStructure<AdminDto>>(structure, HttpStatus.OK);
+		
 	}
 
 }

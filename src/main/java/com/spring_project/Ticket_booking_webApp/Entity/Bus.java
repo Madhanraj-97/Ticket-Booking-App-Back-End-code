@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -30,10 +31,8 @@ public class Bus {
 	private String ac;
 	private String seattype;
 	@EqualsAndHashCode.Exclude
-	@OneToOne(cascade = CascadeType.ALL)
-	private BusSchedule schedule;
-	@OneToMany (cascade = CascadeType.ALL)
-	private Seat [] seat;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<BusSchedule>  schedules;
 	@ManyToOne
 	@JsonIgnore
 	private Admin admin;

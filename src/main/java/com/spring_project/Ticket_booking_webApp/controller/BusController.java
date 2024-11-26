@@ -24,8 +24,8 @@ public class BusController {
 	BusService service;
 	
 	@PostMapping
-	public ResponseEntity<ResponseStructure<BusDto>> saveBus(@RequestBody Bus bus, @RequestParam int adminId) {
-		return service.saveBus(bus,adminId);
+	public ResponseEntity<ResponseStructure<BusDto>> saveBus(@RequestBody Bus bus) {
+		return service.saveBus(bus);
 	}
 	@GetMapping
 	public ResponseEntity<ResponseStructure<BusDto>> findBus(@RequestParam int id) {

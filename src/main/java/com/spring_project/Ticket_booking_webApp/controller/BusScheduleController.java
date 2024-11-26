@@ -1,5 +1,6 @@
 package com.spring_project.Ticket_booking_webApp.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.print.attribute.standard.Severity;
@@ -42,8 +43,12 @@ public class BusScheduleController {
 		return service.deleteSchedule(id);
 	}
 	@GetMapping("searchbus")
-	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(@RequestParam String from,@RequestParam String to){
-		return service.searchBus(from, to);
+	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(@RequestParam String from,@RequestParam String to,@RequestParam LocalDate date){
+		return service.searchBus(from, to,date);
 	}
-
+	
+	@GetMapping("get")
+	public BusSchedule getSchedule() {
+		return new BusSchedule();
+	}
 }

@@ -14,18 +14,18 @@ public interface BusRepository extends JpaRepository<Bus,Integer> {
 	@Query("select a from Bus a where a.busno=?1 ")
 	public <T> Optional<T> findByBusNo(String busno);
 	
-	@Transactional
-	@Modifying
-	@Query("update Bus b SET b.admin = NULL WHERE b.id =?1")
-	int removeAdminFromBus(int id);
-	
-	@Transactional
-	@Modifying
-	@Query("update Bus b SET b.seat = NULL WHERE b.id =?1")
-	int removeSeatsFromBus(int id);
-	
-	@Query("select b from Bus b WHERE b.schedule.sourcecity =?1 AND b.schedule.destinationcity =?2 ")
-	Optional<List<Bus>> getBuslist(String source,String destination);
+//	@Transactional
+//	@Modifying
+////	@Query("update Bus b SET b.admin = NULL WHERE b.id =?1")
+//	int removeAdminFromBus(int id);
+//	
+//	@Transactional
+//	@Modifying
+////	@Query("update Bus b SET b.seat = NULL WHERE b.id =?1")
+//	int removeSeatsFromBus(int id);
+//	
+////	@Query("select b from Bus b WHERE b.schedule.sourcecity =?1 AND b.schedule.destinationcity =?2 ")
+//	Optional<List<Bus>> getBuslist(String source,String destination);
 	
 	
 }

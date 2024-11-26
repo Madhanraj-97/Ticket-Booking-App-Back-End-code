@@ -1,5 +1,6 @@
 package com.spring_project.Ticket_booking_webApp.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,8 @@ public class UserController {
 	}
 	
 	@GetMapping("searchbus")
-	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(@RequestParam String from,@RequestParam String to ){
-		return service.searchBus(from, to);
+	public ResponseEntity<ResponseStructure<List<BusScheduleDto>>> searchBus(@RequestParam String from,@RequestParam String to, @RequestParam LocalDate date ){
+		return service.searchBus(from, to,date);
 	}
 	@GetMapping("login")
 	public ResponseEntity<ResponseStructure<UserDto>> userlogin(@RequestParam String email,@RequestParam String password){

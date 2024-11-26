@@ -55,19 +55,29 @@ public class SeatDao {
 
 	// function for delete seats where bus.is is null;
 	public int deleteSeats() {
-		return repo.deleteSeats();
+//		return repo.deleteSeats();
+		return (Integer) null;
 	}
 
 	public int removeBus(int id) {
-		return repo.removeBusFromSeats(id);
+//		return repo.removeBusFromSeats(id);
+		return (Integer) null;
+
 	}
 
 	public SeatDto seatDtoConversion(Seat s) {
 		SeatDto dto = new SeatDto();
-		dto.setBus(s.getBus());
-		dto.setPassenger(s.getPassenger());
+		dto.setId(s.getId());
+		dto.setStatus(s.isStatus());
 		dto.setSeatNo(s.getSeatNo());
 		return dto;
+	}
+	public SeatDto[] seatDtosConversion(Seat[] seat) {
+		SeatDto[] dtoList=new SeatDto[seat.length];
+		for(int i=0;i<dtoList.length;i++) {
+			dtoList[i]=seatDtoConversion(seat[i]);
+		}
+		return dtoList;
 	}
 
 }

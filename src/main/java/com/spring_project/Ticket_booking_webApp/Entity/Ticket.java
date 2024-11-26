@@ -2,6 +2,8 @@ package com.spring_project.Ticket_booking_webApp.Entity;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ public class Ticket {
 	private int id;
 	@OneToOne
 	private Passenger passenger;
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	private Seat seat;
 	

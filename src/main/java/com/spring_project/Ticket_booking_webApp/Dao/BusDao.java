@@ -25,23 +25,10 @@ public class BusDao {
 //	public int deleteSeats(int id) {
 //		return repo.removeSeatsFromBus(id);
 //	}
-	public Bus saveBus(Bus bus, int AdminId) {
-		bus.setSeat(seats(bus.getSeatcapacity(), bus));
-		return repo.save(bus); // this is line save the bus without admin object
-
+	public Bus saveBus(Bus bus) {
+		return repo.save(bus); // this is line save the bus with admin object
 	}
 
-	public Seat[] seats(int count, Bus bus) {
-		Seat[] seat = new Seat[count];
-		for (int i = 0; i < count; i++) {
-			Seat s = new Seat();
-			s.setBus(bus);
-			s.setAvilable(false);
-			s.setSeatNo(i + 1);
-			seat[i] = s;
-		}
-		return seat;
-	}
 
 	public Bus findById(int id) {
 		Optional<Bus> optional = repo.findById(id);
@@ -79,9 +66,8 @@ public class BusDao {
 		busDto.setAc(bus.getAc());
 		busDto.setBusno(bus.getBusno());
 		busDto.setOperator(bus.getOperator());
-		busDto.setSchedule(bus.getSchedule());
-		busDto.setSeat(bus.getSeat());
 		busDto.setSeatcapacity(bus.getSeatcapacity());
+		busDto.setSeattype(bus.getSeattype());
 		return busDto;
 	}
 
@@ -90,7 +76,7 @@ public class BusDao {
 	}
 
 	public List<Bus> busList(String source, String destination) {
-		Optional<List<Bus>> optional= repo.getBuslist(source, destination);
+		Optional<List<Bus>> optional= null;
 		return optional.isPresent()? optional.get():null;
 	}
 

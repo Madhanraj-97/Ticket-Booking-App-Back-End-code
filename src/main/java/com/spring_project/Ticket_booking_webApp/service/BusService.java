@@ -25,9 +25,9 @@ public class BusService {
 	@Autowired
 	SeatDao seatDao;
 
-	public ResponseEntity<ResponseStructure<BusDto>> saveBus(Bus bus, int adminId) {
+	public ResponseEntity<ResponseStructure<BusDto>> saveBus(Bus bus) {
 		ResponseStructure<BusDto> structure = new ResponseStructure<BusDto>();
-		Bus savedBus = dao.saveBus(bus, adminId);
+		Bus savedBus = dao.saveBus(bus);
 		if (savedBus != null) {
 			structure.setData(dao.busDtoConversion(savedBus));
 			structure.setMessage("Bus saved success");
@@ -71,7 +71,7 @@ public class BusService {
 		Bus savedBus = dao.findById(id);
 		bus.setAdmin(savedBus.getAdmin());
 		if(bus.getSeatcapacity()!=savedBus.getSeatcapacity()) {
-			bus.setSeat(dao.seats(bus.getSeatcapacity(),bus));
+//			bus.setSeat(dao.seats(bus.getSeatcapacity(),bus));
 		}
 		structure.setData(dao.busDtoConversion(dao.updateBus(bus)));
 //		seatDao.deleteSeats();

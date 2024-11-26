@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,11 +24,12 @@ public class Seat {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int seatNo;
-	private boolean avilable;
-	@OneToOne
-	private Passenger passenger;
+	private boolean status;
+	@OneToOne(cascade =CascadeType.ALL )
+	private Ticket ticket;
 	@EqualsAndHashCode.Exclude
 	@JsonIgnore
 	@ManyToOne
-	private Bus bus;
+	private BusSchedule schedule;
+	
 }

@@ -13,7 +13,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 @Entity
-//@Data
+@Data
 @Component
 public class Admin {
 	@Id
@@ -25,36 +25,6 @@ public class Admin {
 	@EqualsAndHashCode.Exclude
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Bus> bus;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getOperator() {
-		return operator;
-	}
-	public void setOperator(String operator) {
-		this.operator = operator;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public List<Bus> getBus() {
-		return bus;
-	}
-	public void setBus(List<Bus> bus) {
-		this.bus = bus;
-	}
-	
+		
 	
 }
